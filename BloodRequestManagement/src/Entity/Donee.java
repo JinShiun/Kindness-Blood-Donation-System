@@ -1,0 +1,122 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Entity;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author Lim Jun Hua
+ */
+public class Donee {
+
+    private String doneeId;
+    private String doneeName;
+    private String doneeState;
+    private String doneePhone;
+    private String doneeEmail;
+
+    public Donee() {
+    }
+
+    public Donee(String doneeId) {
+        this.doneeId = doneeId;
+    }
+
+    public Donee(String doneeId, String doneeName, String doneeState, String doneePhone, String doneeEmail) {
+        this.doneeId = doneeId;
+        this.doneeName = doneeName;
+        this.doneeState = doneeState;
+        this.doneePhone = doneePhone;
+        this.doneeEmail = doneeEmail;
+    }
+
+    public String getDoneeId() {
+        return doneeId;
+    }
+
+    public String getDoneeName() {
+        return doneeName;
+    }
+
+    public String getDoneeState() {
+        return doneeState;
+    }
+
+    public String getDoneePhone() {
+        return doneePhone;
+    }
+
+    public String getDoneeEmail() {
+        return doneeEmail;
+    }
+
+    public void setDoneeId(String doneeId) {
+        this.doneeId = doneeId;
+    }
+
+    public void setDoneeName(String doneeName) {
+        this.doneeName = doneeName;
+    }
+
+    public void setDoneestate(String doneeState) {
+        this.doneeState = doneeState;
+    }
+
+    public void setDoneePhone(String doneePhone) {
+        this.doneePhone = doneePhone;
+    }
+
+    public void setDoneeEmail(String doneeEmail) {
+        this.doneeEmail = doneeEmail;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-20s %-25s %-25s %-20s %-30s", doneeId, doneeName, doneeState, doneePhone, doneeEmail);
+    }
+    
+    public String toString2(){
+        return doneeId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Donee other = (Donee) obj;
+        if (!Objects.equals(this.doneeId, other.doneeId)) {
+            return false;
+        }
+        if (!Objects.equals(this.doneeName, other.doneeName)) {
+            return false;
+        }
+        if (!Objects.equals(this.doneeState, other.doneeState)) {
+            return false;
+        }
+        if (!Objects.equals(this.doneePhone, other.doneePhone)) {
+            return false;
+        }
+        if (!Objects.equals(this.doneeEmail, other.doneeEmail)) {
+            return false;
+        }
+        return true;
+    }
+
+}
