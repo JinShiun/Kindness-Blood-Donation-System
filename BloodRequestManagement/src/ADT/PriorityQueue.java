@@ -7,7 +7,7 @@ package ADT;
 
 /**
  *
- * @author Chai Jia Hao
+ * @author Lee Jin Shiun
  */
 public class PriorityQueue<T extends Comparable<T>> implements PriorityQueueInterface<T> {
 

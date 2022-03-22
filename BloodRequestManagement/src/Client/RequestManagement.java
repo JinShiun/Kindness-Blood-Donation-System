@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Chai Jia Hao
+ * @author Lee Jin Shiun
  */
 public class RequestManagement {
 
@@ -123,9 +123,9 @@ public class RequestManagement {
 
     private void addRequest() {
         String decision = "";
-        String bloodType = "";
-        int requestAmount = 0;
-        int needLevel = 0;
+        String bloodGroup = "";
+        int requestQty = 0;
+        int priorityLvl = 0;
 
         do {
             int num = requestQueue.getTotalEntry() + 1;
@@ -150,8 +150,8 @@ public class RequestManagement {
             boolean loop = true;
             do {
                 System.out.print("Enter Blood Type [A, B, O, AB]: ");//only these four blood type is validate
-                bloodType = scan.nextLine();
-                if (!bloodType.equalsIgnoreCase("A") && !bloodType.equalsIgnoreCase("B") && !bloodType.equalsIgnoreCase("AB") && !bloodType.equalsIgnoreCase("O")) {
+                bloodGroup = scan.nextLine();
+                if (!bloodGroup.equalsIgnoreCase("A") && !bloodGroup.equalsIgnoreCase("B") && !bloodGroup.equalsIgnoreCase("AB") && !bloodGroup.equalsIgnoreCase("O")) {
                     System.out.println(ANSI_RED + "Invalid blood type ! Please re-enter.\n" + ANSI_RESET);
                     loop = true;
                 } else {
@@ -164,7 +164,7 @@ public class RequestManagement {
             do {
                 try {
                     System.out.print("Enter Request Amount of Blood Bag [300 ml per bag]: ");
-                    requestAmount = scan.nextInt();
+                    requestQty = scan.nextInt();
 
                     loop2 = false;
                 } catch (Exception e) {
@@ -174,17 +174,17 @@ public class RequestManagement {
             } while (loop2);
 
             System.out.print("Enter Request Status [Approved/Pending/Rejected]: Pending\n");
-            String requestStatus = "Pending";
+            String status = "Pending";
 
             //validation of need level
             boolean loop3 = true;
             do {
                 try {
                     System.out.print("Enter Need Level [5 - 1]: ");//larger number will have higher priority
-                    needLevel = scan.nextInt();
+                    priorityLvl = scan.nextInt();
                     scan.nextLine();
 
-                    if (needLevel < 1 || needLevel > 5) {
+                    if (priorityLvl < 1 || priorityLvl > 5) {
                         System.out.println(ANSI_RED + "Need level must between 1 to 5\n" + ANSI_RESET);
                     } else {
                         loop3 = false;
@@ -201,12 +201,12 @@ public class RequestManagement {
                 System.out.print("Continue adding request ? [Y - Yes/N - No]: ");
                 decision = scan.nextLine();
                 if (decision.equalsIgnoreCase("Y") || decision.equalsIgnoreCase("Yes")) {
-                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodType.toUpperCase(), requestAmount, requestDate, requestStatus, needLevel));
+                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, status, priorityLvl));
 
                     System.out.println(ANSI_GREEN + "\nSuccessfully add a new request." + ANSI_RESET + "\n\n");
                     loop4 = false;
                 } else if (decision.equalsIgnoreCase("N") || decision.equalsIgnoreCase("No")) {
-                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodType.toUpperCase(), requestAmount, requestDate, requestStatus, needLevel));
+                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, status, priorityLvl));
                     System.out.println("\n" + ANSI_GREEN + "All request had been successfully added !\n\n" + ANSI_RESET);
                     loop4 = false;
                 } else {
@@ -328,15 +328,15 @@ public class RequestManagement {
                 boolean loop6 = true;
                 do {
                     System.out.print("\nEnter new blood type [A, B, O, AB]: ");//only these four blood type is validate
-                    String newBloodType = scan.nextLine().toUpperCase();
-                    if (!newBloodType.equals("A") && !newBloodType.equals("B") && !newBloodType.equals("AB") && !newBloodType.equals("O")) {
+                    String newBloodGroup = scan.nextLine().toUpperCase();
+                    if (!newBloodGroup.equals("A") && !newBloodGroup.equals("B") && !newBloodGroup.equals("AB") && !newBloodGroup.equals("O")) {
                         System.out.println(ANSI_RED + "Invalid blood type ! Please re-enter.\n" + ANSI_RESET);
                         loop6 = true;
                     } else {
 
                         requestQueue.replace(requestUpd, new Request(requestChoose.getRequestId(),
-                                requestChoose.getDoneeId(), newBloodType, requestChoose.getRequestAmount(),
-                                requestChoose.getRequestDate(), requestChoose.getRequestStatus(), requestChoose.getNeedLevel()));
+                                requestChoose.getDoneeId(), newBloodGroup, requestChoose.getRequestQty(),
+                                requestChoose.getRequestDate(), requestChoose.getStatus(), requestChoose.getPriorityLvl()));
                         //requestQueue.enqueue(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), newBloodType, requestChoose.getRequestAmount(), requestChoose.getRequestDate(), requestChoose.getRequestStatus(), requestChoose.getNeedLevel()));
                         //requestQueue.replace(requestUpd - 1, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), newBloodType, requestChoose.getRequestAmount(), requestChoose.getRequestDate(), requestChoose.getRequestStatus(), requestChoose.getNeedLevel()));
                         System.out.println(ANSI_GREEN + "Successfully update blood type !\n" + ANSI_RESET);
@@ -349,10 +349,10 @@ public class RequestManagement {
                 do {
                     try {
                         System.out.print("Enter new request amount of Blood Bag [300 ml per bag]: ");
-                        int newRequestAmount = scan.nextInt();
+                        int newRequestQty = scan.nextInt();
                         //requestQueue.remove(infoUpdate);
                         //requestQueue.enqueue(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), newRequestAmount, requestChoose.getRequestDate(), requestChoose.getRequestStatus(), requestChoose.getNeedLevel()));
-                        requestQueue.replace(requestUpd, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), newRequestAmount, requestChoose.getRequestDate(), requestChoose.getRequestStatus(), requestChoose.getNeedLevel()));
+                        requestQueue.replace(requestUpd, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), newRequestQty, requestChoose.getRequestDate(), requestChoose.getStatus(), requestChoose.getPriorityLvl()));
                         System.out.println(ANSI_GREEN + "Successfully update request amount !\n" + ANSI_RESET);
                         loop7 = false;
                     } catch (Exception e) {
@@ -371,12 +371,12 @@ public class RequestManagement {
                 do {
                     try {
                         System.out.print("Enter Need Level [5 - 1]: ");//larger number will have higher priority
-                        int newNeedLevel = scan.nextInt();
+                        int newPriorityLvl = scan.nextInt();
                         requestQueue.remove(infoUpdate);
-                        requestQueue.enqueue(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), requestChoose.getRequestStatus(), newNeedLevel));
+                        requestQueue.enqueue(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getStatus(), newPriorityLvl));
                         //requestQueue.replace(requestUpd, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), requestChoose.getRequestStatus(), newNeedLevel));
                         System.out.println(ANSI_GREEN + "Successfully update need level !\n" + ANSI_RESET);
-                        if (newNeedLevel < 1 || newNeedLevel > 5) {
+                        if (newPriorityLvl < 1 || newPriorityLvl > 5) {
                             System.out.println(ANSI_RED + "Need level must between 1 to 5\n" + ANSI_RESET);
                         } else {
                             loop8 = false;
@@ -397,24 +397,24 @@ public class RequestManagement {
                 do {
                     System.out.println(ANSI_BLUE + "The request will remove from the queue after update." + ANSI_RESET);
                     System.out.print("Enter new request status [Approved - A/Rejected - R]: ");
-                    String newRequestStatus = scan.nextLine();
-                    if (newRequestStatus.equalsIgnoreCase("A") || newRequestStatus.equalsIgnoreCase("Approved")) {
+                    String newStatus = scan.nextLine();
+                    if (newStatus.equalsIgnoreCase("A") || newStatus.equalsIgnoreCase("Approved")) {
                         String statusApprove = "Approved";
-                        if (!BloodBankInventory.updBloodRequest(requestChoose.getBloodType(), requestChoose.getRequestAmount())) {
+                        if (!BloodBankInventory.updBloodRequest(requestChoose.getBloodGroup(), requestChoose.getRequestQty())) {
                             System.out.println(ANSI_RED + "No changes make. Blood inventory no enough !" + ANSI_RESET);
                         } else {
                             //add to blood bank
 //                        BloodBankInventory.updBloodRequest(requestChoose.getBloodType(), requestChoose.getRequestAmount());
 //                        System.out.println(BloodBankInventory.updBloodRequest(requestChoose.getBloodType(), requestChoose.getRequestAmount()));
-                            Request r = new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), statusApprove, requestChoose.getNeedLevel());
+                            Request r = new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), statusApprove, requestChoose.getPriorityLvl());
                             BloodBankInventory.addToBloodBank(r);
 //requestStack.push(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), statusApprove, requestChoose.getNeedLevel()));
                             requestQueue.remove(requestUpd);
                         }
                         loop9 = false;
-                    } else if (newRequestStatus.equalsIgnoreCase("R") || newRequestStatus.equalsIgnoreCase("Rejected")) {
+                    } else if (newStatus.equalsIgnoreCase("R") || newStatus.equalsIgnoreCase("Rejected")) {
                         String statusReject = "Rejected";
-                        bb.addRequest(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), statusReject, requestChoose.getNeedLevel()));
+                        bb.addRequest(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), statusReject, requestChoose.getPriorityLvl()));
                         requestQueue.remove(requestUpd);
                         loop9 = false;
                     } else {
@@ -622,8 +622,8 @@ public class RequestManagement {
         boolean loop6 = true;
         do {
             System.out.print("\nEnter blood type [A, B, O, AB]: ");//only these four blood type is validate
-            String bloodType = scan.nextLine().toUpperCase();
-            if (!bloodType.equals("A") && !bloodType.equals("B") && !bloodType.equals("AB") && !bloodType.equals("O")) {
+            String bloodGroup = scan.nextLine().toUpperCase();
+            if (!bloodGroup.equals("A") && !bloodGroup.equals("B") && !bloodGroup.equals("AB") && !bloodGroup.equals("O")) {
                 System.out.println(ANSI_RED + "Invalid blood type ! Please re-enter.\n" + ANSI_RESET);
                 loop6 = true;
             } else {
@@ -631,7 +631,7 @@ public class RequestManagement {
                 int j = 1;
                 for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
                     Request selectedRequest = requestQueue.getEntry(i);
-                    if (bloodType.equals(selectedRequest.getBloodType())) {
+                    if (bloodGroup.equals(selectedRequest.getBloodGroup())) {
                         System.out.println(j + ". " + selectedRequest);
                         j++;
                     }
@@ -647,14 +647,14 @@ public class RequestManagement {
         do {
             try {
                 System.out.print("Search request by amount from: ");
-                int amountFrom = scan.nextInt();
+                int qtyFrom = scan.nextInt();
                 System.out.print("Search request by amount to: ");
-                int amountTo = scan.nextInt();
+                int qtyTo = scan.nextInt();
                 requestHeader();
                 int j = 1;
                 for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
                     Request selectedRequest = requestQueue.getEntry(i);
-                    if (amountFrom <= selectedRequest.getRequestAmount() && selectedRequest.getRequestAmount() <= amountTo) {
+                    if (qtyFrom <= selectedRequest.getRequestQty() && selectedRequest.getRequestQty() <= qtyTo) {
                         System.out.println(j + ". " + selectedRequest);
                         j++;
                     }
@@ -673,15 +673,15 @@ public class RequestManagement {
         do {
             try {
                 System.out.print("Enter Need Level [5 - 1]: ");//larger number will have higher priority
-                int needLevel = scan.nextInt();
-                if (needLevel < 1 || needLevel > 5) {
+                int PriorityLvl = scan.nextInt();
+                if (PriorityLvl < 1 || PriorityLvl > 5) {
                     System.out.println(ANSI_RED + "Need level must between 1 to 5\n" + ANSI_RESET);
                 } else {
                     requestHeader();
                     int j = 1;
                     for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
                         Request selectedRequest = requestQueue.getEntry(i);
-                        if (needLevel == selectedRequest.getNeedLevel()) {
+                        if (PriorityLvl == selectedRequest.getPriorityLvl()) {
                             System.out.println(j + ". " + selectedRequest);
                             j++;
                         }
@@ -752,8 +752,8 @@ public class RequestManagement {
                 try {
                     BufferedWriter writer = new BufferedWriter(new FileWriter("src/Pending_Request[" + requestDate + "].txt", true));
                     writer.append(reportData.getRequestId() + "\t\t" + reportData.getDoneeId().toString2() + "\t\t"
-                            + reportData.getBloodType() + "\t\t" + reportData.getRequestDate() + "\t"
-                            + reportData.getRequestAmount() + "\t\t" + reportData.getRequestStatus() + "\t\t" + reportData.getNeedLevel() + "\n");
+                            + reportData.getBloodGroup() + "\t\t" + reportData.getRequestDate() + "\t"
+                            + reportData.getRequestQty() + "\t\t" + reportData.getStatus() + "\t\t" + reportData.getPriorityLvl() + "\n");
                     writer.close();
                 } catch (Exception e) {
                     System.out.println("\n\n");

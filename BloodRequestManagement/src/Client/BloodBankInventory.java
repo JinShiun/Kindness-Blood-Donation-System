@@ -106,13 +106,13 @@ public class BloodBankInventory {
 
     public static void addToBloodBank(Request r) {
         int entry = 0;
-        if ("A".equals(r.getBloodType())) {
+        if ("A".equals(r.getBloodGroup())) {
             entry = 1;
-        } else if ("AB".equals(r.getBloodType())) {
+        } else if ("AB".equals(r.getBloodGroup())) {
             entry = 2;
-        } else if ("B".equals(r.getBloodType())) {
+        } else if ("B".equals(r.getBloodGroup())) {
             entry = 3;
-        } else if ("O".equals(r.getBloodType())) {
+        } else if ("O".equals(r.getBloodGroup())) {
             entry = 4;
         }
         BloodBank updNewRequest = bloodList.getEntry(entry);
@@ -176,8 +176,8 @@ public class BloodBankInventory {
                 try {
                     BufferedWriter writer = new BufferedWriter(new FileWriter("src/Reviewed_Request[" + requestDate + "].txt", true));
                     writer.append(reportData.getRequestId() + "\t\t" + reportData.getDoneeId().toString2() + "\t\t"
-                            + reportData.getBloodType() + "\t\t" + reportData.getRequestDate() + "\t"
-                            + reportData.getRequestAmount() + "\t\t" + reportData.getRequestStatus() + "\t\t" + reportData.getNeedLevel() + "\n");
+                            + reportData.getBloodGroup() + "\t\t" + reportData.getRequestDate() + "\t"
+                            + reportData.getRequestQty() + "\t\t" + reportData.getStatus() + "\t\t" + reportData.getPriorityLvl() + "\n");
                     writer.close();
                 } catch (Exception e) {
                     System.out.println("\n\n");

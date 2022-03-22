@@ -9,31 +9,40 @@ import java.util.Objects;
 
 /**
  *
- * @author Chai Jia Hao
+ * @author Lee Jin Shiun
  */
 public class Request implements Comparable<Request>{
-    private String requestId;
     private Donee doneeId;
-    private String bloodType;
+    private String requestId;
     private String requestDate;
-    private int requestAmount;
-    private String requestStatus;
-    private int needLevel;
+    private String bloodGroup;
+    private int requestQty;
+    private int priorityLvl;
+    private String status;
+    
 
     public Request() {
     }
 
-    public Request(String requestId, Donee donooId, String bloodType, 
-         int requestAmount, String requestDate, String requestStatus, int needLevel) {
+    public Request(String requestId, Donee doneeId, String bloodGroup, 
+         int requestQty, String requestDate, String status, int priorityLvl) {
         this.requestId = requestId;
-        this.doneeId = donooId;
-        this.bloodType = bloodType;
+        this.doneeId = doneeId;
+        this.bloodGroup = bloodGroup;
         this.requestDate = requestDate;
-        this.requestAmount = requestAmount;
-        this.requestStatus = requestStatus;
-        this.needLevel = needLevel;
+        this.requestQty = requestQty;
+        this.status = status;
+        this.priorityLvl = priorityLvl;
+    }
+    
+    public Donee getDoneeId() {
+        return doneeId;
     }
 
+    public void setDoneeId(Donee doneeId) {
+        this.doneeId = doneeId;
+    }
+    
     public String getRequestId() {
         return requestId;
     }
@@ -42,20 +51,12 @@ public class Request implements Comparable<Request>{
         this.requestId = requestId;
     }
 
-    public Donee getDoneeId() {
-        return doneeId;
+    public String getBloodGroup() {
+        return bloodGroup;
     }
 
-    public void setDoneeId(Donee doneeId) {
-        this.doneeId = doneeId;
-    }
-
-    public String getBloodType() {
-        return bloodType;
-    }
-
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 
     public String getRequestDate() {
@@ -66,28 +67,28 @@ public class Request implements Comparable<Request>{
         this.requestDate = requestDate;
     }
 
-    public int getRequestAmount() {
-        return requestAmount;
+    public int getRequestQty() {
+        return requestQty;
     }
 
-    public void setRequestAmount(int requestAmount) {
-        this.requestAmount = requestAmount;
+    public void setRequestQty(int requestQty) {
+        this.requestQty = requestQty;
     }
 
-    public String getRequestStatus() {
-        return requestStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public int getNeedLevel() {
-        return needLevel;
+    public int getPriorityLvl() {
+        return priorityLvl;
     }
 
-    public void setNeedLevel(int needLevel) {
-        this.needLevel = needLevel;
+    public void setPriorityLvl(int priorityLvl) {
+        this.priorityLvl = priorityLvl;
     }
 
     @Override
@@ -116,16 +117,15 @@ public class Request implements Comparable<Request>{
 
     @Override
     public String toString() {
-        return  "  " + requestId + "\t\t" + doneeId.toString2() + "\t\t" + bloodType +
-                "\t\t " + requestDate + "\t   " + requestAmount + 
-                "\t\t\t" + requestStatus + "\t\t    " + needLevel + "\n";
+        return  "  " + requestId + "\t\t" + doneeId.toString2() + "\t\t" + bloodGroup +
+                "\t\t " + requestDate + "\t   " + requestQty + "\t\t\t" + status + "\t\t    " + priorityLvl + "\n";
     }
 
     @Override
     public int compareTo(Request r) {
-        if(this.getNeedLevel() < r.getNeedLevel()){
+        if(this.getPriorityLvl() < r.getPriorityLvl()){
             return 1;//current need level greater than r
-        }else if(this.getNeedLevel() > r.getNeedLevel()){
+        }else if(this.getPriorityLvl() > r.getPriorityLvl()){
             return -1;//current need level less than r
         }else{
             return 0;
