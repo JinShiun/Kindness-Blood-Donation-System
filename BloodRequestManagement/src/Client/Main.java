@@ -30,7 +30,7 @@ public class Main {
         boolean loginSuccess = true;
         do {
             System.out.println("======================================================");
-            System.out.println("             Blood Babi  Management System            ");
+            System.out.println("             Kidness Blood Management System            ");
             System.out.println("======================================================");
             System.out.print("Enter username: ");
             String name = scan.nextLine();
@@ -50,6 +50,7 @@ public class Main {
     private static void initializeCollection() {
         DoneeManagement dm = new DoneeManagement();
         RequestManagement rm = new RequestManagement();
+        DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
 
         dm.checkQueue();
@@ -60,6 +61,7 @@ public class Main {
     public static void mainMenu() {
         DoneeManagement dm = new DoneeManagement();
         RequestManagement rm = new RequestManagement();
+        DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
 
         System.out.println("======================================================");
@@ -68,7 +70,8 @@ public class Main {
         System.out.println("1. Donee Management");
         System.out.println("2. Blood Request Management");
         System.out.println("3. Blood Bank Inventory");
-        System.out.println("4. Exit");
+        System.out.println("4. Blood Donation Management");
+        System.out.println("5. Exit");
         int option = 0;
 
         try {
@@ -90,6 +93,9 @@ public class Main {
                 BloodBankInventory.bloodBankMenu();
                 break;
             case 4:
+                ddm.DonationMenu();
+                break;
+            case 5:
                 System.exit(0);
             default:
                 System.out.println(ANSI_RED + "Invalid option !\n\n" + ANSI_RESET);

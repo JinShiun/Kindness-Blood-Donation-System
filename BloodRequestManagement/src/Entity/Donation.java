@@ -9,10 +9,10 @@ import java.util.Objects;
 
 /**
  *
- * @author Chai Jia Hao
+ * @author Alex
  */
-public class Request implements Comparable<Request>{
-    private String requestId;
+public class Donation implements Comparable<Donation>{
+    private String donationId;
     private Donee doneeId;
     private String bloodType;
     private String requestDate;
@@ -20,12 +20,12 @@ public class Request implements Comparable<Request>{
     private String requestStatus;
     private int needLevel;
 
-    public Request() {
+    public Donation() {
     }
 
-    public Request(String requestId, Donee donooId, String bloodType, 
-         int requestAmount, String requestDate, String requestStatus, int needLevel) {
-        this.requestId = requestId;
+    public Donation(String donationId, Donee donooId, String bloodType, 
+        int requestAmount, String requestDate, String requestStatus, int needLevel) {
+        this.donationId = donationId;
         this.doneeId = donooId;
         this.bloodType = bloodType;
         this.requestDate = requestDate;
@@ -34,12 +34,12 @@ public class Request implements Comparable<Request>{
         this.needLevel = needLevel;
     }
 
-    public String getRequestId() {
-        return requestId;
+    public String getDonationId() {
+        return donationId;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setDonationId(String requestId) {
+        this.donationId = donationId;
     }
 
     public Donee getDoneeId() {
@@ -107,8 +107,8 @@ public class Request implements Comparable<Request>{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Request other = (Request) obj;
-        if (!Objects.equals(this.requestId, other.requestId)) {
+        final Donation other = (Donation) obj;
+        if (!Objects.equals(this.donationId, other.donationId)) {
             return false;
         }
         return true;
@@ -116,21 +116,20 @@ public class Request implements Comparable<Request>{
 
     @Override
     public String toString() {
-        return  "  " + requestId + "\t\t" + doneeId.toString2() + "\t\t" + bloodType +
+        return  "  " + donationId + "\t\t" + doneeId.toString2() + "\t\t" + bloodType +
                 "\t\t " + requestDate + "\t   " + requestAmount + 
                 "\t\t\t" + requestStatus + "\t\t    " + needLevel + "\n";
     }
 
-    @Override
-    public int compareTo(Request r) {
-        if(this.getNeedLevel() < r.getNeedLevel()){
+    public int compareTo(Donation o) {
+        if(this.getNeedLevel() < o.getNeedLevel()){
             return 1;//current need level greater than r
-        }else if(this.getNeedLevel() > r.getNeedLevel()){
+        }else if(this.getNeedLevel() > o.getNeedLevel()){
             return -1;//current need level less than r
         }else{
             return 0;
         }
     }
+
+   
 }
-
-
