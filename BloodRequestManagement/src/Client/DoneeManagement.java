@@ -153,8 +153,8 @@ public class DoneeManagement {
                     String modifyId = modifyDonee.getDoneeId();
                     String modifyName = modifyDonee.getDoneeName();
                     String modifyState = modifyDonee.getDoneeState();
-                    String modifyPhoneNumber = modifyDonee.getDoneePhone();
-                    String modifyEmail = modifyDonee.getDoneeEmail();
+                    String modifyPhoneNumber = modifyDonee.getDoneePhoneNum();
+                    String modifyEmail = modifyDonee.getDoneeMail();
                     System.out.println("\nWhich categories would you want to modify ?\n");
                     System.out.println("1. Donee Name ");
                     System.out.println("2. Donee state ");
@@ -265,7 +265,7 @@ public class DoneeManagement {
                     doneeHeader();
                     for (int i = 1; i <= doneeQueue.getNumEntry(); i++) {
                         searchDonee = doneeQueue.getEntry(i);
-                        if (searchPhoneNumber.equals(searchDonee.getDoneePhone())) {
+                        if (searchPhoneNumber.equals(searchDonee.getDoneePhoneNum())) {
                             System.out.println(" " + i + ".   " + doneeQueue.getEntry(i));
                         }
                     }
@@ -275,7 +275,7 @@ public class DoneeManagement {
                     doneeHeader();
                     for (int i = 1; i <= doneeQueue.getNumEntry(); i++) {
                         searchDonee = doneeQueue.getEntry(i);
-                        if (searchEmail.equals(searchDonee.getDoneeEmail())) {
+                        if (searchEmail.equals(searchDonee.getDoneeMail())) {
                             System.out.println(" " + i + ".   " + doneeQueue.getEntry(i));
                         }
                     }
@@ -305,7 +305,7 @@ public class DoneeManagement {
                     removeDonee();
                 } else {
                     Donee removeQueue = doneeQueue.getEntry(remove);
-                    Donee restore = new Donee(removeQueue.getDoneeId(), removeQueue.getDoneeName(), removeQueue.getDoneeState(), removeQueue.getDoneePhone(), removeQueue.getDoneeEmail());
+                    Donee restore = new Donee(removeQueue.getDoneeId(), removeQueue.getDoneeName(), removeQueue.getDoneeState(), removeQueue.getDoneePhoneNum(), removeQueue.getDoneeMail());
                     restoreQueue.enqueue(restore);
                     doneeQueue.remove(remove);
 
@@ -329,7 +329,7 @@ public class DoneeManagement {
             int restoreKey = input.nextInt();
             Donee restoreData = restoreQueue.getEntry(restoreKey);
             String restoreID = "R" + String.format("%04d", entry += 1);
-            Donee restore = new Donee(restoreID, restoreData.getDoneeName(), restoreData.getDoneeState(), restoreData.getDoneePhone(), restoreData.getDoneeEmail());
+            Donee restore = new Donee(restoreID, restoreData.getDoneeName(), restoreData.getDoneeState(), restoreData.getDoneePhoneNum(), restoreData.getDoneeMail());
             doneeQueue.enqueue(restore);
             restoreQueue.remove(restoreKey);
             System.out.println("\n\n\n");

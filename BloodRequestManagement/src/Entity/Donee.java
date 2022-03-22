@@ -16,8 +16,8 @@ public class Donee {
     private String doneeId;
     private String doneeName;
     private String doneeState;
-    private String doneePhone;
-    private String doneeEmail;
+    private String doneePhoneNum;
+    private String doneeMail;
 
     public Donee() {
     }
@@ -26,12 +26,12 @@ public class Donee {
         this.doneeId = doneeId;
     }
 
-    public Donee(String doneeId, String doneeName, String doneeState, String doneePhone, String doneeEmail) {
+    public Donee(String doneeId, String doneeName, String doneeState, String doneePhoneNum, String doneeMail) {
         this.doneeId = doneeId;
         this.doneeName = doneeName;
         this.doneeState = doneeState;
-        this.doneePhone = doneePhone;
-        this.doneeEmail = doneeEmail;
+        this.doneePhoneNum = doneePhoneNum;
+        this.doneeMail = doneeMail;
     }
 
     public String getDoneeId() {
@@ -46,12 +46,12 @@ public class Donee {
         return doneeState;
     }
 
-    public String getDoneePhone() {
-        return doneePhone;
+    public String getDoneePhoneNum() {
+        return doneePhoneNum;
     }
 
-    public String getDoneeEmail() {
-        return doneeEmail;
+    public String getDoneeMail() {
+        return doneeMail;
     }
 
     public void setDoneeId(String doneeId) {
@@ -66,17 +66,17 @@ public class Donee {
         this.doneeState = doneeState;
     }
 
-    public void setDoneePhone(String doneePhone) {
-        this.doneePhone = doneePhone;
+    public void setDoneePhoneNum(String doneePhoneNum) {
+        this.doneePhoneNum = doneePhoneNum;
     }
 
-    public void setDoneeEmail(String doneeEmail) {
-        this.doneeEmail = doneeEmail;
+    public void setDoneeMail(String doneeMail) {
+        this.doneeMail = doneeMail;
     }
 
     @Override
     public String toString() {
-        return String.format("%-20s %-25s %-25s %-20s %-30s", doneeId, doneeName, doneeState, doneePhone, doneeEmail);
+        return String.format("%-20s %-25s %-25s %-20s %-30s", doneeId, doneeName, doneeState, doneePhoneNum, doneeMail);
     }
     
     public String toString2(){
@@ -110,10 +110,10 @@ public class Donee {
         if (!Objects.equals(this.doneeState, other.doneeState)) {
             return false;
         }
-        if (!Objects.equals(this.doneePhone, other.doneePhone)) {
+        if (!Objects.equals(this.doneePhoneNum, other.doneePhoneNum)) {
             return false;
         }
-        if (!Objects.equals(this.doneeEmail, other.doneeEmail)) {
+        if (!Objects.equals(this.doneeMail, other.doneeMail)) {
             return false;
         }
         return true;

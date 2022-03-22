@@ -49,17 +49,20 @@ public class Main {
 
     private static void initializeCollection() {
         DoneeManagement dm = new DoneeManagement();
+        DonorManagement drm = new DonorManagement();
         RequestManagement rm = new RequestManagement();
         DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
 
         dm.checkQueue();
+        drm.checkQueue();
         rm.checkQueue();
         bbi.checkList();
     }
 
     public static void mainMenu() {
         DoneeManagement dm = new DoneeManagement();
+        DonorManagement drm = new DonorManagement();
         RequestManagement rm = new RequestManagement();
         DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
@@ -68,10 +71,11 @@ public class Main {
         System.out.println("             Blood Bank Management System             ");
         System.out.println("======================================================");
         System.out.println("1. Donee Management");
-        System.out.println("2. Blood Request Management");
-        System.out.println("3. Blood Bank Inventory");
-        System.out.println("4. Blood Donation Management");
-        System.out.println("5. Exit");
+        System.out.println("2. Donor Management");
+        System.out.println("3. Blood Request Management");
+        System.out.println("4. Blood Bank Inventory");
+        System.out.println("5. Blood Donation Management");
+        System.out.println("6. Exit");
         int option = 0;
 
         try {
@@ -87,15 +91,18 @@ public class Main {
                 dm.doneeMenu();
                 break;
             case 2:
-                rm.requestMngMenu();
+                drm.donorMenu();
                 break;
             case 3:
-                BloodBankInventory.bloodBankMenu();
+                rm.requestMngMenu();
                 break;
             case 4:
-                ddm.DonationMenu();
+                BloodBankInventory.bloodBankMenu();
                 break;
             case 5:
+                ddm.DonationMenu();
+                break;
+            case 6:
                 System.exit(0);
             default:
                 System.out.println(ANSI_RED + "Invalid option !\n\n" + ANSI_RESET);
