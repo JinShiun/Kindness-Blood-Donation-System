@@ -30,7 +30,7 @@ public class Main {
         boolean loginSuccess = true;
         do {
             System.out.println("======================================================");
-            System.out.println("             Blood Bank Management System             ");
+            System.out.println("             Blood Babi  Management System            ");
             System.out.println("======================================================");
             System.out.print("Enter username: ");
             String name = scan.nextLine();
