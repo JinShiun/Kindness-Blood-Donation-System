@@ -24,10 +24,17 @@ public class BloodBankInventory {
     public static SortedArrayListInterface<BloodBank> bloodList = new SortedArrayList<BloodBank>();
     private static final Scanner scan = new Scanner(System.in);
     public static BloodBank bb = new BloodBank();
+    public static RequestManagement RM = new RequestManagement();
 
     public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     public void checkList() {
         if (bloodList.isEmpty()) {
@@ -127,7 +134,7 @@ public class BloodBankInventory {
                 i++;
             }
         } else {
-            System.out.println("No record found !");
+            System.out.println(ANSI_RED + "No record found" + ANSI_RESET);
         }
     }
 
@@ -152,10 +159,11 @@ public class BloodBankInventory {
     }
 
     public static void reviewedRequestReport() {
-
+        
         String requestDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         if (bb.requestStack.isEmpty()) {
             System.out.println("The reviewed request is empty, no report generated!");
+            RM.reportMenu();
         } else {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("src/Reviewed_Request[" + requestDate + "].txt", false));
@@ -194,5 +202,6 @@ public class BloodBankInventory {
             System.out.println("\n\n");
         }
         System.out.println("Report with file name : Reviewed_Request[" + requestDate + "] generated!");
+        
     }
 }

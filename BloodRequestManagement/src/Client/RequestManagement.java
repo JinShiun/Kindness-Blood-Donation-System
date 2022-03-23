@@ -219,8 +219,9 @@ public class RequestManagement {
         System.out.println("||          Display Request           ||");
         System.out.println("****************************************");
         System.out.println("1. Display pending request list");
-        System.out.println("2. Display existing request record");
-        System.out.println("3. Back");
+        System.out.println("2. Display approved request record");
+        System.out.println("3. Display rejected request record");
+        System.out.println("4. Back");
 
         
         int option = 0;
@@ -250,7 +251,7 @@ public class RequestManagement {
                 displayRequest();
                 break;
             case 2:
-                System.out.println("\n\nExisting Request Record: ");
+                System.out.println("\n\nApproved Request Record: ");
                 requestMenuHeader();
                 BloodBankInventory.displayReviewRequest();
                 System.out.println(ANSI_BLUE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
@@ -259,6 +260,15 @@ public class RequestManagement {
                 displayRequest();
                 break;
             case 3:
+                System.out.println("\n\nRejected Request Record: ");
+                requestMenuHeader();
+                bb.displayRequest();
+                System.out.println(ANSI_BLUE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
+                scan.nextLine();
+                scan.nextLine();
+                displayRequest();
+                break;
+            case 4:
                 requestMainMenu();
                 break;
             default:
@@ -460,7 +470,8 @@ public class RequestManagement {
 
         System.out.print("Choose request to remove: ");
         int requestDelete = scan.nextInt();
-        System.out.println(requestQueue.getEntry(requestDelete));
+        requestMenuHeader();
+        System.out.println(" " + 1 + ". " + requestQueue.getEntry(requestDelete));
         
         String confirmDelete = "";
         boolean question9;
