@@ -42,11 +42,11 @@ public class RequestManagement {
     public void checkQueue() {
         
         //"r" for request
-        Request r1 = new Request("R0001", new Donee("D0001"), "A", 10, "03-08-2021", "Pending", 1);
-        Request r2 = new Request("R0002", new Donee("D0002"), "A", 20, "04-08-2021", "Pending", 1);
-        Request r3 = new Request("R0003", new Donee("D0002"), "B", 30, "05-08-2021", "Pending", 5);
-        Request r4 = new Request("R0004", new Donee("D0002"), "O", 40, "06-08-2021", "Pending", 1);
-        Request r5 = new Request("R0005", new Donee("D0003"), "AB", 50, "07-08-2021", "Pending", 1);
+        Request r1 = new Request("R0001", new Donee("D0001"), "A", 10, "03-08-2021", 1 , "Pending");
+        Request r2 = new Request("R0002", new Donee("D0002"), "A", 20, "04-08-2021", 2 , "Pending");
+        Request r3 = new Request("R0003", new Donee("D0002"), "B", 30, "05-08-2021", 4 , "Pending");
+        Request r4 = new Request("R0004", new Donee("D0002"), "O", 40, "06-08-2021", 3 , "Pending");
+        Request r5 = new Request("R0005", new Donee("D0003"), "AB", 50, "07-08-2021", 1 , "Pending");
         
 
         if (requestQueue.isEmpty()) {
@@ -111,7 +111,7 @@ public class RequestManagement {
 
     private void requestMenuHeader() {
         System.out.println("***********************************************************************************************************************************");
-        System.out.println("|No. |Request ID      |Donee ID       |Blood Group      |Request Date     |Request Amount      |Request Status     |Priority Level     |");
+        System.out.println("|No. |Request ID      |Donee ID       |Blood Group      |Request Date     |Request Amount      |Priority Level     |Request Status |");
         System.out.println("***********************************************************************************************************************************");
     }
 
@@ -129,10 +129,10 @@ public class RequestManagement {
             System.out.println("\n\n\n****************************************");
             System.out.println("||            Add Request             ||");
             System.out.println("****************************************");
-            System.out.print("Enter Request ID: " + requestId);//request id will auto-increment the last id used
+            System.out.print("Enter Request ID: " + requestId);
 
             do {
-                System.out.print("\nEnter Donee ID: ");//verify donee id exist or not, print error msg when id not exist 
+                System.out.print("\nEnter Donee ID: ");
                 doneeId = scan.nextLine();
                 if (!DoneeManagement.getValidDonee(doneeId)) {
                     System.out.println(ANSI_RED + "The Donee id was not found!" + ANSI_RESET);
@@ -198,11 +198,11 @@ public class RequestManagement {
                 System.out.print("Continue adding new request ? [Y - Yes/N - No]: ");
                 confirm = scan.nextLine();
                 if (confirm.equalsIgnoreCase("Y") || confirm.equalsIgnoreCase("Yes")) {
-                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, status, priorityLvl));
+                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, priorityLvl, status));
                     System.out.println(ANSI_GREEN + "\nSuccessfully add a new request." + ANSI_RESET + "\n\n");
                     question4 = false;
                 } else if (confirm.equalsIgnoreCase("N") || confirm.equalsIgnoreCase("No")) {
-                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, status, priorityLvl));
+                    requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, priorityLvl, status));
                     System.out.println("\n" + ANSI_GREEN + "All request had been successfully added !\n\n" + ANSI_RESET);
                     question4 = false;
                 } else {
@@ -280,7 +280,7 @@ public class RequestManagement {
 
         //Verify the selected request
         try {
-            System.out.print("Choose request to update or [exit - 0] : ");
+            System.out.print("Choose request to update or [Exit to Menu - 0] : ");
             selection = scan.nextInt();
         } catch (Exception e) {
             scan.nextLine();
@@ -334,7 +334,7 @@ public class RequestManagement {
                     } else {
                         requestQueue.replace(selection, new Request(requestChoose.getRequestId(),
                                 requestChoose.getDoneeId(), newBloodGroup, requestChoose.getRequestQty(),
-                                requestChoose.getRequestDate(), requestChoose.getStatus(), requestChoose.getPriorityLvl()));
+                                requestChoose.getRequestDate(), requestChoose.getPriorityLvl(), requestChoose.getStatus()));
                         System.out.println(ANSI_GREEN + "Successfully update blood type !\n" + ANSI_RESET);
                         question5 = false;
                     }
@@ -346,7 +346,7 @@ public class RequestManagement {
                     try {
                         System.out.print("Enter new request quantity of Blood Bag [300 ml per bag]: ");
                         int newRequestQty = scan.nextInt();
-                        requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), newRequestQty, requestChoose.getRequestDate(), requestChoose.getStatus(), requestChoose.getPriorityLvl()));
+                        requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), newRequestQty, requestChoose.getRequestDate(),  requestChoose.getPriorityLvl(), requestChoose.getStatus()));
                         System.out.println(ANSI_GREEN + "Successfully update request quantity of blood bag !\n" + ANSI_RESET);
                         question6 = false;
                     } catch (Exception e) {
@@ -361,8 +361,8 @@ public class RequestManagement {
                     try {
                         System.out.print("Enter Priority Level [5 - 1]: ");
                         int newPriorityLvl = scan.nextInt();
-                        requestQueue.remove(valueToUpdate);
-                        requestQueue.enqueue(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getStatus(), newPriorityLvl));
+                        
+                        requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), newPriorityLvl, requestChoose.getStatus()));
                         System.out.println(ANSI_GREEN + "Successfully update priority level !\n" + ANSI_RESET);
                         if (newPriorityLvl < 1 || newPriorityLvl > 5) {
                             System.out.println(ANSI_RED + "Priority level between 1 to 5 only.\n" + ANSI_RESET);
@@ -386,14 +386,14 @@ public class RequestManagement {
                         if (!BloodBankInventory.updBloodRequest(requestChoose.getBloodGroup(), requestChoose.getRequestQty())) {
                             System.out.println(ANSI_RED + "Blood inventory no enough. Unable to make changes !" + ANSI_RESET);
                         } else {
-                            Request r = new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), statusApprove, requestChoose.getPriorityLvl());
+                            Request r = new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getPriorityLvl(), statusApprove);
                             BloodBankInventory.addToBloodBank(r);
                             requestQueue.remove(selection);
                         }
                         question8 = false;
                     } else if (newStatus.equalsIgnoreCase("R") || newStatus.equalsIgnoreCase("Rejected")) {
                         String statusReject = "Rejected";
-                        bb.addRequest(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), statusReject, requestChoose.getPriorityLvl()));
+                        bb.addRequest(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getPriorityLvl(), statusReject));
                         requestQueue.remove(selection);
                         question8 = false;
                     } else {
@@ -712,11 +712,11 @@ public class RequestManagement {
         } else {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("src/Pending_Request[" + requestDate + "].txt", false));
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
-                writer.write("\t\t\t\t\tPending request Report\n");
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
-                writer.write("Request ID\tDonee ID\tBlood Type\tRequest Date\tAmount\t\tStatus\t\tNeed Level\n");
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
+                writer.write("\t\t\t\t\t\tPending request Report\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
+                writer.write("Request ID\tDonee ID\tBlood Type\tRequest Date\tQuantity of Blood Bag\tPriority Level\tRequest Status\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
                 writer.close();
             } catch (Exception e) {
                 System.out.println("\n\n");
@@ -727,7 +727,7 @@ public class RequestManagement {
                     BufferedWriter writer = new BufferedWriter(new FileWriter("src/Pending_Request[" + requestDate + "].txt", true));
                     writer.append(reportData.getRequestId() + "\t\t" + reportData.getDoneeId().toString2() + "\t\t"
                             + reportData.getBloodGroup() + "\t\t" + reportData.getRequestDate() + "\t"
-                            + reportData.getRequestQty() + "\t\t" + reportData.getStatus() + "\t\t" + reportData.getPriorityLvl() + "\n");
+                            + reportData.getRequestQty() + "\t\t\t" + reportData.getPriorityLvl() + "\t\t" + reportData.getStatus() + "\n");
                     writer.close();
                 } catch (Exception e) {
                     System.out.println("\n\n");
@@ -736,7 +736,7 @@ public class RequestManagement {
         }
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/Pending_Request[" + requestDate + "].txt", true));
-            writer.append("\n------------------------------------------END OF REPORT---------------------------------------------------\n");
+            writer.append("\n-----------------------------------------------------END OF REPORT-----------------------------------------------------\n");
             writer.append("\nDate of report generated :" + requestDate);
             writer.append("\nTotal pending request : " + requestQueue.getNumEntry());
 

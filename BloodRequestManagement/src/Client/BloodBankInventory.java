@@ -40,11 +40,11 @@ public class BloodBankInventory {
             BloodBank b2 = bloodList.getEntry(3);
             BloodBank b3 = bloodList.getEntry(4);
 
-            Request r1 = new Request("R0001", new Donee("D0001"), "A", 10, "03-08-2021", "Approved", 1);
-            Request r2 = new Request("R0002", new Donee("D0002"), "A", 20, "04-08-2021", "Approved", 1);
-            Request r3 = new Request("R0003", new Donee("D0002"), "B", 30, "05-08-2021", "Approved", 5);
-            Request r4 = new Request("R0004", new Donee("D0002"), "O", 40, "06-08-2021", "Approved", 1);
-            Request r5 = new Request("R0005", new Donee("D0003"), "B", 50, "07-08-2021", "Approved", 1);
+            Request r1 = new Request("R0001", new Donee("D0001"), "A", 10, "03-08-2021", 1 , "Pending");
+            Request r2 = new Request("R0002", new Donee("D0002"), "A", 20, "04-08-2021", 2 , "Pending");
+            Request r3 = new Request("R0003", new Donee("D0002"), "B", 30, "05-08-2021", 4 , "Pending");
+            Request r4 = new Request("R0004", new Donee("D0002"), "O", 40, "06-08-2021", 3 , "Pending");
+            Request r5 = new Request("R0005", new Donee("D0003"), "AB", 50, "07-08-2021", 1 , "Pending");
 
         }
     }

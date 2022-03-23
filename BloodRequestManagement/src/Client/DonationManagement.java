@@ -393,7 +393,7 @@ public class DonationManagement {
                             //add to blood bank
 //                        BloodBankInventory.updBloodRequest(requestChoose.getBloodType(), requestChoose.getRequestAmount());
 //                        System.out.println(BloodBankInventory.updBloodRequest(requestChoose.getBloodType(), requestChoose.getRequestAmount()));
-                            Request r = new Request(donationChoose.getDonationId(), donationChoose.getDoneeId(), donationChoose.getBloodType(), donationChoose.getRequestAmount(), donationChoose.getRequestDate(), statusApprove, donationChoose.getNeedLevel());
+                            Request r = new Request(donationChoose.getDonationId(), donationChoose.getDoneeId(), donationChoose.getBloodType(), donationChoose.getRequestAmount(), donationChoose.getRequestDate(), donationChoose.getNeedLevel(), statusApprove);
                             BloodBankInventory.addToBloodBank(r);
 //requestStack.push(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodType(), requestChoose.getRequestAmount(), requestChoose.getRequestDate(), statusApprove, requestChoose.getNeedLevel()));
                             DonationList.remove(requestUpd);
@@ -401,7 +401,7 @@ public class DonationManagement {
                         loop9 = false;
                     } else if (newRequestStatus.equalsIgnoreCase("R") || newRequestStatus.equalsIgnoreCase("Rejected")) {
                         String statusReject = "Rejected";
-                        bb.addRequest(new Request(donationChoose.getDonationId(), donationChoose.getDoneeId(), donationChoose.getBloodType(), donationChoose.getRequestAmount(), donationChoose.getRequestDate(), statusReject, donationChoose.getNeedLevel()));
+                        bb.addRequest(new Request(donationChoose.getDonationId(), donationChoose.getDoneeId(), donationChoose.getBloodType(), donationChoose.getRequestAmount(), donationChoose.getRequestDate(), donationChoose.getNeedLevel(), statusReject));
                         DonationList.remove(requestUpd);
                         loop9 = false;
                     } else {

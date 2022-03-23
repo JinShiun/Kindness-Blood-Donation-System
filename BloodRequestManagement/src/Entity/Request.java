@@ -25,14 +25,14 @@ public class Request implements Comparable<Request>{
     }
 
     public Request(String requestId, Donee doneeId, String bloodGroup, 
-         int requestQty, String requestDate, String status, int priorityLvl) {
+         int requestQty, String requestDate, int priorityLvl, String status) {
         this.requestId = requestId;
         this.doneeId = doneeId;
         this.bloodGroup = bloodGroup;
         this.requestDate = requestDate;
         this.requestQty = requestQty;
-        this.status = status;
         this.priorityLvl = priorityLvl;
+        this.status = status;   
     }
     
     public Donee getDoneeId() {
@@ -118,7 +118,7 @@ public class Request implements Comparable<Request>{
     @Override
     public String toString() {
         return  "  " + requestId + "\t\t" + doneeId.toString2() + "\t\t" + bloodGroup +
-                "\t\t " + requestDate + "\t   " + requestQty + "\t\t\t" + status + "\t\t    " + priorityLvl + "\n";
+                "\t\t " + requestDate + "\t   " + requestQty + "\t\t\t" + priorityLvl + "\t\t    " + status + "\n";
     }
 
     @Override
