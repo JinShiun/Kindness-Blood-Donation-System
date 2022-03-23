@@ -94,7 +94,7 @@ public class Main {
                 drm.donorMenu();
                 break;
             case 3:
-                rm.requestMngMenu();
+                rm.requestMainMenu();
                 break;
             case 4:
                 BloodBankInventory.bloodBankMenu();

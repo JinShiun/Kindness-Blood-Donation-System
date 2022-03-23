@@ -15,9 +15,10 @@ import java.util.Scanner;
 
 /**
  *
- * @author Chai Jia Hao
- * @author Gan Wei Zhe
+ * @author Lee Jin Shiun
+ * @author 
  */
+
 public class BloodBankInventory {
 
     public static SortedArrayListInterface<BloodBank> bloodList = new SortedArrayList<BloodBank>();
@@ -44,11 +45,7 @@ public class BloodBankInventory {
             Request r3 = new Request("R0003", new Donee("D0002"), "B", 30, "05-08-2021", "Approved", 5);
             Request r4 = new Request("R0004", new Donee("D0002"), "O", 40, "06-08-2021", "Approved", 1);
             Request r5 = new Request("R0005", new Donee("D0003"), "B", 50, "07-08-2021", "Approved", 1);
-//            b1.addRequest(r1);
-//            b1.addRequest(r2);
-//            b2.addRequest(r3);
-//            b3.addRequest(r4);
-//            b2.addRequest(r5);
+
         }
     }
 
@@ -134,23 +131,23 @@ public class BloodBankInventory {
         }
     }
 
-    public static boolean updBloodRequest(String bloodType, int bloodAmount) {
+    public static boolean updBloodRequest(String bloodGroup, int bloodQty) {
         boolean success = true;
-        int newAmount = 0;
+        int newQty = 0;
 
         for (int i = 1; i <= bloodList.getNumberOfEntries(); i++) {
             BloodBank selectedBlood = bloodList.getEntry(i);
-            if (selectedBlood.getBloodType().equals(bloodType)) {
-                newAmount = selectedBlood.getBloodAmount() - bloodAmount;
-                if (newAmount > 0) {
-                    selectedBlood.setBloodAmount(newAmount);
+            if (selectedBlood.getBloodGroup().equals(bloodGroup)) {
+                newQty = selectedBlood.getBloodQty() - bloodQty;
+                if (newQty > 0) {
+                    selectedBlood.setBloodQty(newQty);
                     success = true;
                 } else {
                     success = false;
                 }
             }
         }
-        System.out.println(newAmount);
+        System.out.println(newQty);
         return success;
     }
 

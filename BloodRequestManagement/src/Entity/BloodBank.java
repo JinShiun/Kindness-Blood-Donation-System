@@ -11,13 +11,14 @@ import ADT.ArrayStackInterface;
 
 /**
  *
- * @author Chai Jia Hao
- * @author Gan Wei Zhe
+ * @author Lee Jin Shiun
+ * @author 
  */
+
 public class BloodBank implements Comparable<BloodBank> {
 
-    private String bloodType;
-    private int bloodAmount;
+    private String bloodGroup;
+    private int bloodQty;
     public ArrayStackInterface<Request> requestStack;
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -34,19 +35,19 @@ public class BloodBank implements Comparable<BloodBank> {
         requestStack = new ArrayStack<>();
     }
 
-    public BloodBank(String bloodType) {
-        this.bloodType = bloodType;
+    public BloodBank(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 
-    public BloodBank(String bloodType, int bloodAmount) {
-        this.bloodType = bloodType;
-        this.bloodAmount = bloodAmount;
+    public BloodBank(String bloodGroup, int bloodQty) {
+        this.bloodGroup = bloodGroup;
+        this.bloodQty = bloodQty;
         requestStack = new ArrayStack<>();
     }
 
-    public BloodBank(String bloodType, int bloodAmount, ArrayStackInterface<Request> requestStack) {
-        this.bloodType = bloodType;
-        this.bloodAmount = bloodAmount;
+    public BloodBank(String bloodGroup, int bloodQty, ArrayStackInterface<Request> requestStack) {
+        this.bloodGroup = bloodGroup;
+        this.bloodQty = bloodQty;
         this.requestStack = requestStack;
     }
 
@@ -58,24 +59,24 @@ public class BloodBank implements Comparable<BloodBank> {
         this.requestStack = requestStack;
     }
 
-    public BloodBank(int bloodAmount) {
-        this.bloodAmount = bloodAmount;
+    public BloodBank(int bloodQty) {
+        this.bloodQty = bloodQty;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getBloodGroup() {
+        return bloodGroup;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setBloodType(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 
-    public int getBloodAmount() {
-        return bloodAmount;
+    public int getBloodQty() {
+        return bloodQty;
     }
 
-    public void setBloodAmount(int bloodAmount) {
-        this.bloodAmount = bloodAmount;
+    public void setBloodQty(int bloodQty) {
+        this.bloodQty = bloodQty;
     }
 
     public void addRequest(Request r) {
@@ -98,13 +99,13 @@ public class BloodBank implements Comparable<BloodBank> {
 
     @Override
     public String toString() {
-        return "\t" + bloodType
-                + "\t\t" + bloodAmount;
+        return "\t" + bloodGroup
+                + "\t\t" + bloodQty;
     }
 
     public String toString2() {
-        return "Blood Type: " + ANSI_BLUE + bloodType + ANSI_RESET
-                + "\tBlood Amount: " + ANSI_BLUE + bloodAmount + ANSI_RESET
+        return "Blood Type: " + ANSI_BLUE + bloodGroup + ANSI_RESET
+                + "\tBlood Amount: " + ANSI_BLUE + bloodQty + ANSI_RESET
                 + "\nRecent request:\n" + requestStack.toString2();
     }
 
@@ -126,7 +127,7 @@ public class BloodBank implements Comparable<BloodBank> {
             return false;
         }
         final BloodBank other = (BloodBank) obj;
-        if (!Objects.equals(this.bloodType, other.bloodType)) {
+        if (!Objects.equals(this.bloodGroup, other.bloodGroup)) {
             return false;
         }
         return true;
@@ -134,9 +135,9 @@ public class BloodBank implements Comparable<BloodBank> {
 
     @Override
     public int compareTo(BloodBank o) {
-        if (this.getBloodType().compareTo(o.getBloodType()) > 0) {
+        if (this.getBloodGroup().compareTo(o.getBloodGroup()) > 0) {
             return 1;//current need level greater than r
-        } else if (this.getBloodType().compareTo(o.getBloodType()) > 0) {
+        } else if (this.getBloodGroup().compareTo(o.getBloodGroup()) > 0) {
             return -1;//current need level less than r
         } else {
             return 0;
