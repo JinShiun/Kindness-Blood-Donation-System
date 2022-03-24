@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------------------------------------------
 						Pending request Report
 ----------------------------------------------------------------------------------------------------------------------
-Request ID	Donee ID	Blood Type	Request Date	Quantity of Blood Bag	Priority Level	Request Status
+Request ID	Donee ID	Blood Group	Request Date	Quantity of Blood Bag	Priority Level	Request Status
 ----------------------------------------------------------------------------------------------------------------------
 R0004		D0002		O		06-08-2021	40			3		Pending
 R0001		D0001		A		03-08-2021	10			1		Pending

@@ -73,7 +73,7 @@ public class RequestManagement {
         System.out.println(" 7. Back to main menu");
 
         try {
-            System.out.print("\nChoose an option (1 - 6): ");
+            System.out.print("\nChoose an option (1 - 7): ");
             option = scan.nextInt();
             scan.nextLine();
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public class RequestManagement {
                 Main.mainMenu();
                 break;
             default:
-                System.out.println(ANSI_RED + "Invalid option selection! Please enter again (1 - 6)" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option selection! Please enter again (1 - 7)" + ANSI_RESET);
                 requestMainMenu();
                 break;
         }
@@ -139,7 +139,7 @@ public class RequestManagement {
                 }
             } while (!DoneeManagement.getValidDonee(doneeId));
             
-            //using current or local date
+            //using current date
             System.out.println("Request Date: " + requestDate);
             
             //validation of blood Group
@@ -168,10 +168,6 @@ public class RequestManagement {
                 }
             } while (question2);
 
-            //The status of the new request will be pending. 
-            System.out.print("Request Status : Pending\n");
-            String status = "Pending";
-
             //validation of priority level
             boolean question3 = true;
             do {
@@ -192,6 +188,10 @@ public class RequestManagement {
                 }
             } while (question3);
 
+            //The status of the new request will be pending. 
+            System.out.print("Request Status : Pending\n");
+            String status = "Pending";
+            
             //Continue adding or stop adding
             boolean question4 = true;
             do {
@@ -199,11 +199,11 @@ public class RequestManagement {
                 confirm = scan.nextLine();
                 if (confirm.equalsIgnoreCase("Y") || confirm.equalsIgnoreCase("Yes")) {
                     requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, priorityLvl, status));
-                    System.out.println(ANSI_GREEN + "\nSuccessfully add a new request." + ANSI_RESET + "\n\n");
+                    System.out.println(ANSI_GREEN + "\nSuccessfully add a new request." + ANSI_RESET);
                     question4 = false;
                 } else if (confirm.equalsIgnoreCase("N") || confirm.equalsIgnoreCase("No")) {
                     requestQueue.enqueue(new Request(requestId, new Donee(doneeId), bloodGroup.toUpperCase(), requestQty, requestDate, priorityLvl, status));
-                    System.out.println("\n" + ANSI_GREEN + "All request had been successfully added !\n\n" + ANSI_RESET);
+                    System.out.println(ANSI_GREEN + "\nAll request had been successfully added !\n\n" + ANSI_RESET);
                     question4 = false;
                 } else {
                     System.out.println(ANSI_RED + "\nInvalid input ! Please enter again [Y - Yes/N - No]." + ANSI_RESET);
@@ -227,7 +227,7 @@ public class RequestManagement {
         int option = 0;
 
         try {
-            System.out.print("\nEnter your option: ");
+            System.out.print("\nEnter your option (1 - 4): ");
             option = scan.nextInt();
         } catch (Exception e) {
             scan.nextLine();
@@ -245,7 +245,7 @@ public class RequestManagement {
                     System.out.println(ANSI_RED + "No record found" + ANSI_RESET);
                 }
                 //Blue font color for confirmation
-                System.out.println(ANSI_BLUE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
+                System.out.println(ANSI_WHITE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
                 scan.nextLine();
                 scan.nextLine();
                 displayRequest();
@@ -254,7 +254,7 @@ public class RequestManagement {
                 System.out.println("\n\nApproved Request Record: ");
                 requestMenuHeader();
                 BloodBankInventory.displayReviewRequest();
-                System.out.println(ANSI_BLUE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
+                System.out.println(ANSI_WHITE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
                 scan.nextLine();
                 scan.nextLine();
                 displayRequest();
@@ -263,7 +263,7 @@ public class RequestManagement {
                 System.out.println("\n\nRejected Request Record: ");
                 requestMenuHeader();
                 bb.displayRequest();
-                System.out.println(ANSI_BLUE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
+                System.out.println(ANSI_WHITE + "Press 'Enter' to back to menu.\n\n" + ANSI_RESET);
                 scan.nextLine();
                 scan.nextLine();
                 displayRequest();
@@ -284,8 +284,12 @@ public class RequestManagement {
         //display all pending request
         System.out.println("\n\nPending Request: ");
         requestMenuHeader();
-        for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
+        if (!requestQueue.isEmpty()) {
+            for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
             System.out.println(" " + i + ". " + requestQueue.getEntry(i));
+        }
+        } else {
+            System.out.println(ANSI_RED + "No record found" + ANSI_RESET);
         }
 
         //Verify the selected request
@@ -293,7 +297,9 @@ public class RequestManagement {
             System.out.print("Choose request to update or [Exit to Menu - 0] : ");
             selection = scan.nextInt();
         } catch (Exception e) {
+            System.out.println(ANSI_RED + "Invalid input ! Please enter again" + ANSI_RESET);
             scan.nextLine();
+            chooseRequest();
         }
 
         //Verify that the selected request exists
@@ -339,7 +345,7 @@ public class RequestManagement {
                     System.out.print("\nEnter new blood group [A, B, O, AB]: ");
                     String newBloodGroup = scan.nextLine().toUpperCase();
                     if (!newBloodGroup.equals("A") && !newBloodGroup.equals("B") && !newBloodGroup.equals("AB") && !newBloodGroup.equals("O")) {
-                        System.out.println(ANSI_RED + "Invalid blood type ! Please re-enter.\n" + ANSI_RESET);
+                        System.out.println(ANSI_RED + "Invalid input ! Please enter again [A, B, O, AB].\n" + ANSI_RESET);
                         question5 = true;
                     } else {
                         requestQueue.replace(selection, new Request(requestChoose.getRequestId(),
@@ -354,7 +360,7 @@ public class RequestManagement {
                 boolean question6 = true;
                 do {
                     try {
-                        System.out.print("Enter new request quantity of Blood Bag [300 ml per bag]: ");
+                        System.out.print("\nEnter new request quantity of Blood Bag [300 ml per bag]: ");
                         int newRequestQty = scan.nextInt();
                         requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), newRequestQty, requestChoose.getRequestDate(),  requestChoose.getPriorityLvl(), requestChoose.getStatus()));
                         System.out.println(ANSI_GREEN + "Successfully update request quantity of blood bag !\n" + ANSI_RESET);
@@ -369,14 +375,15 @@ public class RequestManagement {
                 boolean question7 = true;
                 do {
                     try {
-                        System.out.print("Enter Priority Level [5 - 1]: ");
+                        System.out.print("\nEnter Priority Level [5 - 1]: ");
+                        
                         int newPriorityLvl = scan.nextInt();
                         
-                        requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), newPriorityLvl, requestChoose.getStatus()));
-                        System.out.println(ANSI_GREEN + "Successfully update priority level !\n" + ANSI_RESET);
+                        requestQueue.replace(selection, new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), newPriorityLvl, requestChoose.getStatus()));                        
                         if (newPriorityLvl < 1 || newPriorityLvl > 5) {
-                            System.out.println(ANSI_RED + "Priority level between 1 to 5 only.\n" + ANSI_RESET);
+                            System.out.println(ANSI_RED + "Invalid input ! Priority level between 1 to 5 only.\n" + ANSI_RESET);
                         } else {
+                            System.out.println(ANSI_GREEN + "Successfully update priority level !\n" + ANSI_RESET);
                             question7 = false;
                         }
                     } catch (Exception e) {
@@ -388,14 +395,15 @@ public class RequestManagement {
             case 4:
                 boolean question8 = true;
                 do {
-                    System.out.println(ANSI_BLUE + "Once the request is updated, the request will be removed from the pending queue." + ANSI_RESET);
-                    System.out.print("Enter new request status [Approved - A/Rejected - R]: ");
+                    System.out.println(ANSI_WHITE + "\nOnce the request is updated, the request will be removed from the pending queue." + ANSI_RESET);
+                    System.out.print("Enter new request status [Approved - A/Rejected - R/Back - B]: ");
                     String newStatus = scan.nextLine();
                     if (newStatus.equalsIgnoreCase("A") || newStatus.equalsIgnoreCase("Approved")) {
                         String statusApprove = "Approved";
                         if (!BloodBankInventory.updBloodRequest(requestChoose.getBloodGroup(), requestChoose.getRequestQty())) {
                             System.out.println(ANSI_RED + "Blood inventory no enough. Unable to make changes !" + ANSI_RESET);
                         } else {
+                            System.out.println(ANSI_GREEN + "Successfully update request status !\n" + ANSI_RESET);
                             Request r = new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getPriorityLvl(), statusApprove);
                             BloodBankInventory.addToBloodBank(r);
                             requestQueue.remove(selection);
@@ -403,11 +411,15 @@ public class RequestManagement {
                         question8 = false;
                     } else if (newStatus.equalsIgnoreCase("R") || newStatus.equalsIgnoreCase("Rejected")) {
                         String statusReject = "Rejected";
+                        System.out.println(ANSI_GREEN + "Successfully update request status !\n" + ANSI_RESET);
                         bb.addRequest(new Request(requestChoose.getRequestId(), requestChoose.getDoneeId(), requestChoose.getBloodGroup(), requestChoose.getRequestQty(), requestChoose.getRequestDate(), requestChoose.getPriorityLvl(), statusReject));
                         requestQueue.remove(selection);
                         question8 = false;
-                    } else {
-                        System.out.println(ANSI_RED + "\nInvalid option !" + ANSI_RESET);
+                    } else if(newStatus.equalsIgnoreCase("B") || newStatus.equalsIgnoreCase("Back")){
+                        question8 = false;
+                        break;
+                    }else {
+                        System.out.println(ANSI_RED + "\nInvalid option ! Please enter again." + ANSI_RESET);
                         question8 = true;
                     }
                 } while (question8);
@@ -434,7 +446,7 @@ public class RequestManagement {
 
         int optionDelete = 0;
         try {
-            System.out.print("Choose an option [1 - 3]: ");
+            System.out.print("\nChoose an option (1 - 4): ");
             optionDelete = scan.nextInt();
             scan.nextLine();
         } catch (Exception e) {
@@ -455,7 +467,7 @@ public class RequestManagement {
                 requestMainMenu();
                 break;
             default:
-                System.out.println(ANSI_RED + "Invalid option ! Please enter again [1 - 3]." + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option ! Please enter again [1 - 4]." + ANSI_RESET);
                 removeMenu();
                 break;
         }
@@ -464,19 +476,26 @@ public class RequestManagement {
     private void removeRequest() {
         System.out.println("Pending request: ");
         requestMenuHeader();
-        for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
-            System.out.println(" " + i + ". " + requestQueue.getEntry(i));
-        }
 
+        if (!requestQueue.isEmpty()) {
+            for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
+                System.out.println(" " + i + ". " + requestQueue.getEntry(i));
+            }
+        } else {
+            System.out.println(ANSI_RED + "No record found" + ANSI_RESET);
+            removeMenu();
+        }
+        
         System.out.print("Choose request to remove: ");
         int requestDelete = scan.nextInt();
+        scan.nextLine();
         requestMenuHeader();
         System.out.println(" " + 1 + ". " + requestQueue.getEntry(requestDelete));
         
         String confirmDelete = "";
         boolean question9;
         do {
-            System.out.println("Confirm remove this request ? (Yes - Y/No - N): ");
+            System.out.print("Confirm remove this request ? (Yes - Y/No - N): ");
             confirmDelete = scan.nextLine();
             if (confirmDelete.equalsIgnoreCase("Yes") || confirmDelete.equalsIgnoreCase("Y")) {
                 recycleBinStack.push(requestQueue.getEntry(requestDelete));
@@ -487,25 +506,32 @@ public class RequestManagement {
                 System.out.println(ANSI_BLUE + "No changes make !" + ANSI_RESET);
                 question9 = false;
             } else {
-                System.out.println(ANSI_RED + "Invalid option !" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option ! Please enter again." + ANSI_RESET);
                 question9 = true;
             }
         } while (question9);
-        removeMenu();
+        removeMenu(); 
     }
 
     private void viewRecycleBin() {
         System.out.println("Deleted request: ");
         requestMenuHeader();
         int top = recycleBinStack.getNumOfEntry();
-        int i = 1;
-        for (int j = top; j >= 0; j--) {
-            System.out.println(" " + i + ". " + recycleBinStack.peek(j));
-            i++;
+
+        if (!recycleBinStack.isEmpty()) {
+            int i = 1;
+            for (int j = top; j >= 0; j--) {
+                System.out.println(" " + i + ". " + recycleBinStack.peek(j));
+                i++;
+            }
+        } else {
+            System.out.println(ANSI_RED + "No record found" + ANSI_RESET);
         }
+
+        
         boolean question10 = true;
         do {
-            System.out.println(ANSI_BLUE + "Enter [Clear - C] to clear the bin, [Back - B] back to menu, [Restore - R] to restore request." + ANSI_RESET);
+            System.out.print(ANSI_WHITE + "Enter [Clear - C/Restore - R/Back - B]: " + ANSI_RESET);
             String clear = scan.nextLine();
             if (clear.equalsIgnoreCase("Clear") || clear.equalsIgnoreCase("C")) {
                 question10 = false;
@@ -571,7 +597,7 @@ public class RequestManagement {
                 removeMenu();
             } else {
                 question1 = true;
-                System.out.println(ANSI_RED + "Invalid option !" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option ! Please enter again." + ANSI_RESET);
             }
         } while (question1);
     }
@@ -587,7 +613,7 @@ public class RequestManagement {
 
         int searchOption = 0;
         try {
-            System.out.print("Search request by: ");
+            System.out.print("Search request by (1 - 4): ");
             searchOption = scan.nextInt();
             scan.nextLine();
         } catch (Exception e) {
@@ -608,7 +634,7 @@ public class RequestManagement {
                 requestMainMenu();
                 break;
             default:
-                System.out.println(ANSI_RED + "Invalid option ! Please enter again [1-4]." + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option ! Please enter again [1 - 4]." + ANSI_RESET);
                 searchMenu();
                 break;
         }
@@ -620,18 +646,24 @@ public class RequestManagement {
             System.out.print("\nEnter blood group [A, B, O, AB]: ");
             String bloodGroup = scan.nextLine().toUpperCase();
             if (!bloodGroup.equals("A") && !bloodGroup.equals("B") && !bloodGroup.equals("AB") && !bloodGroup.equals("O")) {
-                System.out.println(ANSI_RED + "Invalid blood group ! Please enter again [A, B, O, AB].\n" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid input ! Please enter again [A, B, O, AB].\n" + ANSI_RESET);
                 question5 = true;
             } else {
-                requestMenuHeader();
-                int j = 1;
-                for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
-                    Request selectedRequest = requestQueue.getEntry(i);
-                    if (bloodGroup.equals(selectedRequest.getBloodGroup())) {
-                        System.out.println(j + ". " + selectedRequest);
-                        j++;
+
+                if (!requestQueue.isEmpty()) {
+                    requestMenuHeader();
+                    int j = 1;
+                    for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
+                        Request selectedRequest = requestQueue.getEntry(i);
+                        if (bloodGroup.equals(selectedRequest.getBloodGroup())) {
+                            System.out.println(j + ". " + selectedRequest);
+                            j++;
+                        }
                     }
+                } else {
+                    System.out.println(ANSI_RED + "\nNo record found" + ANSI_RESET);
                 }
+    
                 question5 = false;
             }
         } while (question5);
@@ -642,22 +674,28 @@ public class RequestManagement {
         boolean question6 = true;
         do {
             try {
-                System.out.print("Search request by quantity of Blood bag from: ");
+                System.out.print("Quantity of Blood bag from: ");
                 int qtyFrom = scan.nextInt();
-                System.out.print("Search request by quantity of Blood bag to: ");
+                System.out.print("Quantity of Blood bag to: ");
                 int qtyTo = scan.nextInt();
-                requestMenuHeader();
-                int j = 1;
-                for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
-                    Request selectedRequest = requestQueue.getEntry(i);
-                    if (qtyFrom <= selectedRequest.getRequestQty() && selectedRequest.getRequestQty() <= qtyTo) {
-                        System.out.println(j + ". " + selectedRequest);
-                        j++;
+                
+                if (!requestQueue.isEmpty()) {
+                    requestMenuHeader();
+                    int j = 1;
+                    for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
+                        Request selectedRequest = requestQueue.getEntry(i);
+                        if (qtyFrom <= selectedRequest.getRequestQty() && selectedRequest.getRequestQty() <= qtyTo) {
+                            System.out.println(j + ". " + selectedRequest);
+                            j++;
+                        }
                     }
+                } else {
+                    System.out.println(ANSI_RED + "\nNo record found" + ANSI_RESET);
                 }
+                     
                 question6 = false;
             } catch (Exception e) {
-                System.out.println(ANSI_RED + "Invalid request amount ! Please re-enter.\n" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid input ! Please enter again.\n" + ANSI_RESET);
                 scan.nextLine();
             }
         } while (question6);
@@ -668,24 +706,30 @@ public class RequestManagement {
         boolean question7 = true;
         do {
             try {
-                System.out.print("Enter Need Level [5 - 1]: ");//larger number will have higher priority
+                System.out.print("Enter Priority Level [5 - 1]: ");
                 int PriorityLvl = scan.nextInt();
                 if (PriorityLvl < 1 || PriorityLvl > 5) {
-                    System.out.println(ANSI_RED + "Need level must between 1 to 5\n" + ANSI_RESET);
+                    System.out.println(ANSI_RED + "Priority level must between 1 to 5\n" + ANSI_RESET);
                 } else {
-                    requestMenuHeader();
-                    int j = 1;
-                    for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
-                        Request selectedRequest = requestQueue.getEntry(i);
-                        if (PriorityLvl == selectedRequest.getPriorityLvl()) {
-                            System.out.println(j + ". " + selectedRequest);
-                            j++;
+
+                    if (!requestQueue.isEmpty()) {
+                        requestMenuHeader();
+                        int j = 1;
+                        for (int i = 1; i <= requestQueue.getNumEntry(); i++) {
+                            Request selectedRequest = requestQueue.getEntry(i);
+                            if (PriorityLvl == selectedRequest.getPriorityLvl()) {
+                                System.out.println(j + ". " + selectedRequest);
+                                j++;
+                            }
                         }
+                    } else {
+                        System.out.println(ANSI_RED + "\nNo record found" + ANSI_RESET);
                     }
+
                     question7 = false;
                 }
             } catch (Exception e) {
-                System.out.println(ANSI_RED + "Invalid need level ! Please re-enter.\n" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid priority level ! Please enter again [5 - 1].\n" + ANSI_RESET);
                 scan.nextLine();
             }
         } while (question7);
@@ -702,7 +746,7 @@ public class RequestManagement {
 
         int reportOption = 0;
         try {
-            System.out.print("\nReport to generate: ");
+            System.out.print("\nChoose to generate (1 - 3): ");
             reportOption = scan.nextInt();
             scan.nextLine();
         } catch (Exception e) {
@@ -721,7 +765,7 @@ public class RequestManagement {
                 requestMainMenu();
                 break;
             default:
-                System.out.println(ANSI_RED + "Invalid option !" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Invalid option ! Please enter again (1 - 3)." + ANSI_RESET);
                 reportMenu();
                 break;
         }
@@ -730,13 +774,14 @@ public class RequestManagement {
     public void pendingRequestReport() {
         if (requestQueue.isEmpty()) {
             System.out.println("The pending request is empty, no report generated!");
+            reportMenu();
         } else {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("src/Pending_Request[" + requestDate + "].txt", false));
                 writer.write("----------------------------------------------------------------------------------------------------------------------\n");
                 writer.write("\t\t\t\t\t\tPending request Report\n");
                 writer.write("----------------------------------------------------------------------------------------------------------------------\n");
-                writer.write("Request ID\tDonee ID\tBlood Type\tRequest Date\tQuantity of Blood Bag\tPriority Level\tRequest Status\n");
+                writer.write("Request ID\tDonee ID\tBlood Group\tRequest Date\tQuantity of Blood Bag\tPriority Level\tRequest Status\n");
                 writer.write("----------------------------------------------------------------------------------------------------------------------\n");
                 writer.close();
             } catch (Exception e) {

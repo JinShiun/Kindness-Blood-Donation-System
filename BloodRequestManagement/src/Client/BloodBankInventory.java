@@ -167,11 +167,11 @@ public class BloodBankInventory {
         } else {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("src/Reviewed_Request[" + requestDate + "].txt", false));
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
                 writer.write("\t\t\t\t\tReviewed Request Report\n");
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
-                writer.write("Request ID\tDonee ID\tBlood Type\tRequest Date\tAmount\t\tStatus\t\tNeed Level\n");
-                writer.write("-----------------------------------------------------------------------------------------------------------\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
+                writer.write("Request ID\tDonee ID\tBlood Group\tRequest Date\tQuantity of Blood Bag\tPriority Level\tRequest Status\n");
+                writer.write("----------------------------------------------------------------------------------------------------------------------\n");
                 writer.close();
             } catch (Exception e) {
                 System.out.println("\n\n");
@@ -182,7 +182,7 @@ public class BloodBankInventory {
                     BufferedWriter writer = new BufferedWriter(new FileWriter("src/Reviewed_Request[" + requestDate + "].txt", true));
                     writer.append(reportData.getRequestId() + "\t\t" + reportData.getDoneeId().toString2() + "\t\t"
                             + reportData.getBloodGroup() + "\t\t" + reportData.getRequestDate() + "\t"
-                            + reportData.getRequestQty() + "\t\t" + reportData.getStatus() + "\t\t" + reportData.getPriorityLvl() + "\n");
+                            + reportData.getRequestQty() + "\t\t\t" + reportData.getPriorityLvl() + "\t\t" + reportData.getStatus() + "\n");
                     writer.close();
                 } catch (Exception e) {
                     System.out.println("\n\n");
@@ -193,7 +193,7 @@ public class BloodBankInventory {
         int count = bb.requestStack.getNumOfEntry() + 1;
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/Reviewed_Request[" + requestDate + "].txt", true));
-            writer.append("\n------------------------------------------END OF REPORT---------------------------------------------------\n");
+            writer.append("\n-----------------------------------------------------END OF REPORT-----------------------------------------------------\n");
             writer.append("\nDate of report generated :" + requestDate);
             writer.append("\nTotal reviewed request : " + count);
 
