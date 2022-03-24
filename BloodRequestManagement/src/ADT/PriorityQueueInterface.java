@@ -7,7 +7,7 @@ package ADT;
 
 /**
  *
- * @author Chai Jia Hao
+ * @author Lee Jin Shiun
  */
 public interface PriorityQueueInterface<T> {
 

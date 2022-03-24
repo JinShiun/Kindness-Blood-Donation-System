@@ -15,7 +15,7 @@ public class PriorityQueue<T extends Comparable<T>> implements PriorityQueueInte
     private int frontIndex;
     private int backIndex;
     private int count; //tracking the number of queue
-    //private int
+    
     private static final int DEFAULT_CAPACITY = 5;
 
     public PriorityQueue() {
@@ -102,9 +102,7 @@ public class PriorityQueue<T extends Comparable<T>> implements PriorityQueueInte
         return frontIndex > backIndex;
     }
 
-    /**
-     *
-     */
+
     @Override
     public void clear() {
         if (!isEmpty()) { // deallocates only the used portion      

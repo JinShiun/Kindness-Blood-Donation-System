@@ -12,7 +12,7 @@ package ADT;
 public class ArrayStack<T> implements ArrayStackInterface<T> {
 
     private T[] array;
-    private int topIndex; // index of top entry
+    private int topIndex; 
     private static final int DEFAULT_CAPACITY = 50;
 
     public ArrayStack() {
@@ -54,7 +54,7 @@ public class ArrayStack<T> implements ArrayStackInterface<T> {
                 array[index] = array[index + 1];
             } while (index + 1 <= topIndex);
             topIndex--;
-        } // end if
+        } 
 
         return entry;
     }

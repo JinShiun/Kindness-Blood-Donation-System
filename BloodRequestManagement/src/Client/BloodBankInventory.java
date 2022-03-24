@@ -58,9 +58,9 @@ public class BloodBankInventory {
 
     public static void bloodBankMenu() {
         int option = 0;
-        System.out.println("\n\n======================================");
-        System.out.println("||       Blood Bank Inventory       ||");
-        System.out.println("======================================");
+        System.out.println("\n\n==========================================");
+        System.out.println("||           Blood Bank Inventory       ||");
+        System.out.println("==========================================");
         bloodBankHeader();
         for (int i = 1; i <= bloodList.getNumberOfEntries(); i++) {
             System.out.println(i + ". " + bloodList.getEntry(i));
@@ -92,9 +92,10 @@ public class BloodBankInventory {
     }
 
     public static void displayRecentRequest() {
-        System.out.println("\n\n======================================");
-        System.out.println("||       Blood Bank Inventory       ||");
-        System.out.println("======================================");
+        
+        System.out.println("\n\n==========================================");
+        System.out.println("||           Blood Bank Inventory       ||");
+        System.out.println("==========================================");
         for (int i = 1; i <= bloodList.getNumberOfEntries(); i++) {
             System.out.println(i + ". " + bloodList.getEntry(i).toString2());
         }
@@ -104,8 +105,8 @@ public class BloodBankInventory {
     }
 
     public static void bloodBankHeader() {
-        System.out.println("No.\tBlood Type\tBlood Amount");
-        System.out.println("======================================");
+        System.out.println("No.\tBlood Group\tBlood Bag Quantity");
+        System.out.println("==========================================");
     }
 
     public static void addToBloodBank(Request r) {

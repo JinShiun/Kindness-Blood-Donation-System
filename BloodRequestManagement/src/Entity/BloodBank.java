@@ -104,8 +104,8 @@ public class BloodBank implements Comparable<BloodBank> {
     }
 
     public String toString2() {
-        return "Blood Type: " + ANSI_BLUE + bloodGroup + ANSI_RESET
-                + "\tBlood Amount: " + ANSI_BLUE + bloodQty + ANSI_RESET
+        return "Blood Group: " +  bloodGroup 
+                + "\tBlood Quantity: " + bloodQty 
                 + "\nRecent request:\n" + requestStack.toString2();
     }
 
