@@ -518,23 +518,33 @@ public class RequestManagement {
                 removeMenu();
             } else if (clear.equalsIgnoreCase("Restore") || clear.equalsIgnoreCase("R")) {
                 question10 = false;
-                System.out.print("Enter request record to restore: ");
-                int restoreRequest = scan.nextInt();
-                scan.nextLine();
-                int findRequest = top + 1 - restoreRequest;
-                System.out.println(recycleBinStack.peek(findRequest));
-                System.out.println(ANSI_RED + "Request record will restore as new record!" + ANSI_RESET);
-                System.out.print("Confirm restore this record ? (Yes - Y/No - N): ");
-                String confirmDelete = scan.nextLine();
-                if (confirmDelete.equalsIgnoreCase("Yes") || confirmDelete.equalsIgnoreCase("Y")) {
-                    requestQueue.enqueue(recycleBinStack.peek(findRequest));
-                    recycleBinStack.pop(findRequest);
-                    System.out.println(ANSI_GREEN + "Request successfully restore from recycle bin !" + ANSI_RESET);
-                } else if (confirmDelete.equalsIgnoreCase("No") || confirmDelete.equalsIgnoreCase("N")) {
-                    System.out.println(ANSI_BLUE + "No changes make !" + ANSI_RESET);
-                } else {
-                    System.out.println(ANSI_RED + "Invalid option !" + ANSI_RESET);
+                try{
+                    System.out.print("Enter request record to restore: ");
+                    int restoreRequest = scan.nextInt();
+                    scan.nextLine();
+                    int findRequest = top + 1 - restoreRequest;
+                   
+                    System.out.println(recycleBinStack.peek(findRequest));
+
+                    System.out.println(ANSI_RED + "Request record will restore as new record!" + ANSI_RESET);
+                    System.out.print("Confirm restore this record ? (Yes - Y/No - N): ");
+                    String confirmDelete = scan.nextLine();
+                    if (confirmDelete.equalsIgnoreCase("Yes") || confirmDelete.equalsIgnoreCase("Y")) {
+                        requestQueue.enqueue(recycleBinStack.peek(findRequest));
+                        recycleBinStack.pop(findRequest);
+                        System.out.println(ANSI_GREEN + "Request successfully restore from recycle bin !" + ANSI_RESET);
+                    } else if (confirmDelete.equalsIgnoreCase("No") || confirmDelete.equalsIgnoreCase("N")) {
+                        System.out.println(ANSI_BLUE + "No changes make !" + ANSI_RESET);
+                    } else {
+                        System.out.println(ANSI_RED + "Invalid option !" + ANSI_RESET);
+                    }
+                   
+                }catch(Exception e){
+                    System.out.println(ANSI_RED + "Invalid input !" + ANSI_RESET);
+                    scan.nextLine();
                 }
+
+               
             } else {
                 System.out.println(ANSI_RED + "Invalid option !\n\n" + ANSI_RESET);
             }
