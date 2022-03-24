@@ -5,7 +5,8 @@
  */
 package Client;
 
-import ADT.List;
+import ADT.*;
+import Entity.*;
 import ADT.ListInterface;
 import Entity.Campaign;
 import Entity.NeedList;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class CampaignManagement {
 
     public static int menu() {
-        int option;
+        int option = 0;
         Scanner input = new Scanner(System.in);
         do {
             System.out.println("\n=============================");
@@ -35,7 +36,23 @@ public class CampaignManagement {
             option = input.nextInt();
         } while (option > 4 || option < 1);
 
-        return option;
+        
+         switch (option) {
+            case 1:
+                campaignMenu();
+                break;
+            case 2:
+                needListMenu();
+                break;
+            case 4:
+                Main.mainMenu();
+                break;
+            default:
+                System.out.println("Invalid option selection! Please enter again (1 - 7)");
+                break;
+         }
+         
+         return option;
     }
 
     public static int campaignMenu() {
