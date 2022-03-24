@@ -53,6 +53,7 @@ public class Main {
         RequestManagement rm = new RequestManagement();
         DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
+        CampaignManagement cm = new CampaignManagement();
 
         dm.checkQueue();
         drm.checkQueue();
@@ -66,6 +67,7 @@ public class Main {
         RequestManagement rm = new RequestManagement();
         DonationManagement ddm = new DonationManagement();
         BloodBankInventory bbi = new BloodBankInventory();
+        CampaignManagement cm = new CampaignManagement();
 
         System.out.println("======================================================");
         System.out.println("             Blood Bank Management System             ");
@@ -75,7 +77,8 @@ public class Main {
         System.out.println("3. Blood Request Management");
         System.out.println("4. Blood Bank Inventory");
         System.out.println("5. Blood Donation Management");
-        System.out.println("6. Exit");
+        System.out.println("6. Campaign Management");
+        System.out.println("7. Exit");
         int option = 0;
 
         try {
@@ -103,6 +106,9 @@ public class Main {
                 ddm.DonationMenu();
                 break;
             case 6:
+                cm.menu();
+                break;
+            case 7:
                 System.exit(0);
             default:
                 System.out.println(ANSI_RED + "Invalid option !\n\n" + ANSI_RESET);
